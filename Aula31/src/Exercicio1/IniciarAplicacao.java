@@ -8,49 +8,77 @@ public class IniciarAplicacao {
         List<Alimento> compras = new ArrayList<>();
 
         while (true) {
-            System.out.println("\n--- MENU ---");
-            System.out.println("\nQual tipo de alimento quer adicionar");
-            System.out.println("1. Adicionar VERDURA");
-            System.out.println("2. Adicionar LEGUME");
-            System.out.println("3. Adicionar GRÃOS");
-            System.out.println("4. Adicionar OUTROS");
-            System.out.println("5. Sair do menu");
-            System.out.println("Escolha uma opção: ");
+            try {
+                System.out.println("\n--- MENU ---");
+                System.out.println("\nQual tipo de alimento quer adicionar");
+                System.out.println("1. Adicionar VERDURA");
+                System.out.println("2. Adicionar LEGUME");
+                System.out.println("3. Adicionar GRÃOS");
+                System.out.println("4. Adicionar OUTROS");
+                System.out.println("5. Sair do menu");
+                System.out.println("Escolha uma opção: ");
 
-            String opcao = ler.nextLine();
+                String opcao = ler.nextLine();
 
-            if (opcao.equals("5")) {
-                break;
+                if (opcao.equals("5")) {
+                    break;
+                }
+                while (true) {
+
+                    if (opcao.equalsIgnoreCase("VERDURA") || opcao.equals("1")) {
+                        Verdura verdura = new Verdura("", 0);
+                        try {
+                            verdura = verdura.adicionarVerdura();
+                        } catch (NumberFormatException e) {
+                            System.out.println("Erro NumberFormatException: " + e.getMessage());
+                            continue;
+                        }
+                        compras.add(verdura);
+                        break;
+
+
+                    } else if (opcao.equalsIgnoreCase("LEGUME") || opcao.equals("2")) {
+                        Legume legume = new Legume("", 0);
+                        try {
+                            legume = legume.adicionarLegume();
+                        } catch (NumberFormatException e) {
+                            System.out.println("Erro NumberFormatException: " + e.getMessage());
+                            continue;
+                        }
+                        compras.add(legume);
+                        break;
+
+                    } else if (opcao.equalsIgnoreCase("GRÃOS") || opcao.equals("3")) {
+                        Grao grao = new Grao("", 0);
+                        try {
+                            grao = grao.adicionarGrao();
+                        } catch (NumberFormatException e) {
+                            System.out.println("Erro NumberFormatException: " + e.getMessage());
+                            continue;
+                        }
+                        compras.add(grao);
+                        break;
+
+                    } else if (opcao.equalsIgnoreCase("OUTROS") || opcao.equals("4")) {
+                        Outro outro = new Outro("", 0);
+                        try {
+                            outro = outro.adicionarOutros();
+                        } catch (NumberFormatException e) {
+                            System.out.println("Erro NumberFormatException: " + e.getMessage());
+                            continue;
+                        }
+                        compras.add(outro);
+                        break;
+
+                    } else {
+                        throw new IllegalArgumentException("Tipo de alimento inválido");
+                    }
+
+
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro IllegalArgumentException: " + e.getMessage());
             }
-
-            if (opcao.equalsIgnoreCase("VERDURA") || opcao.equals("1")) {
-                Verdura verdura = new Verdura("", 0);
-                verdura = verdura.adicionarVerdura();
-                compras.add(verdura);
-
-
-            } else if (opcao.equalsIgnoreCase("LEGUME") || opcao.equals("2")) {
-
-                Legume legume = new Legume("", 0);
-                legume = legume.adicionarLegume();
-                compras.add(legume);
-
-
-            } else if (opcao.equalsIgnoreCase("GRÃOS") || opcao.equals("3")) {
-                Grao grao = new Grao("", 0);
-                grao = grao.adicionarGrao();
-                compras.add(grao);
-
-
-            } else if (opcao.equalsIgnoreCase("OUTROS") || opcao.equals("4")) {
-                Outro outro = new Outro("", 0);
-                outro = outro.adicionarOutros();
-                compras.add(outro);
-
-            } else {
-                throw new IllegalArgumentException("Tipo de alimento inválido");
-            }
-
         }
 
         System.out.println("\n--- LISTA DE COMPRAS ---");
@@ -60,14 +88,17 @@ public class IniciarAplicacao {
         int numeroOutro = 0;
 
         for (Alimento alimento : compras) {
-            System.out.println(alimento.getTipo() + " - " + alimento.getNome() + " - " + alimento.getQuantidade() + " kg.");
             if (alimento.getTipo().equals("VERDURA")) {
+                System.out.println(alimento.getTipo() + " - " + alimento.getNome() + " - " + alimento.getQuantidade() + " kg.");
                 numeroVerdura++;
             } else if (alimento.getTipo().equals("LEGUME")) {
+                System.out.printf("%s - %s - %.0f un.\n", alimento.getTipo(),alimento.getNome(), alimento.getQuantidade());
                 numeroLegumes++;
             } else if (alimento.getTipo().equals("GRÃOS")) {
+                System.out.println(alimento.getTipo() + " - " + alimento.getNome() + " - " + alimento.getQuantidade() + " kg.");
                 numeroGrao++;
             } else {
+                System.out.printf("%s - %s - %.0f un.\n", alimento.getTipo(),alimento.getNome(), alimento.getQuantidade());
                 numeroOutro++;
             }
         }

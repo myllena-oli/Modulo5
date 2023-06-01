@@ -33,11 +33,20 @@ class Outro extends Alimento {
         }
         ler.nextLine();
 
-        System.out.print("Informe o nome do 'outros': ");
-        String nome = ler.nextLine();
+        String nome;
+        while (true) {
+            try {
+                System.out.print("Informe o nome do 'outros': ");
+                nome = ler.nextLine();
 
-        if (nome.isEmpty()) {
-            throw new UnsupportedOperationException("Não é permitido inserir nome vazio");
+                if (nome.isEmpty()) {
+                    throw new UnsupportedOperationException("Não é permitido inserir nome vazio");
+                } else {
+                    break;
+                }
+            } catch (UnsupportedOperationException e) {
+                System.out.println("Erro NumberFormatException: " + e.getMessage());
+            }
         }
         return new Outro(nome, quantidade);
     }

@@ -22,7 +22,6 @@ class Verdura extends Alimento {
                 throw new UnsupportedOperationException("Não é permitido inserir valor vazio");
             }
 
-
             if (quantidadeEmString.contains("-")) {
                 System.out.println("Não é possível inserir números negativos!");
                 continue;
@@ -30,17 +29,25 @@ class Verdura extends Alimento {
 
             if (quantidadeEmString.contains(".")) {
                 quantidade = Double.parseDouble(quantidadeEmString);
-                System.out.println("O número digitado é um double: " + quantidade);
                 break;
             } else {
                 throw new NumberFormatException("Para verdura, a quantidade deve ser informada com ponto.");
             }
         }
-        System.out.print("Informe o nome da verdura: ");
-        String nome = ler.nextLine();
+        String nome;
+        while (true) {
+            try {
+                System.out.print("Informe o nome da verdura: ");
+                nome = ler.nextLine();
 
-        if (nome.isEmpty()) {
-            throw new UnsupportedOperationException("Não é permitido inserir nome vazio");
+                if (nome.isEmpty()) {
+                    throw new UnsupportedOperationException("Não é permitido inserir nome vazio");
+                } else {
+                    break;
+                }
+            } catch (UnsupportedOperationException e) {
+                System.out.println("Erro UnsupportedOperationException: " + e.getMessage());
+            }
         }
         return new Verdura(nome, quantidade);
     }

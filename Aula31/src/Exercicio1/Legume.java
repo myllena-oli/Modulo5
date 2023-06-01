@@ -34,12 +34,23 @@ class Legume extends Alimento {
             }
         }
         ler.nextLine();
-        System.out.print("Informe o nome do legume: ");
-        String nome = ler.nextLine();
+        String nome;
 
-        if (nome.isEmpty()) {
-            throw new UnsupportedOperationException("Não é permitido inserir nome vazio");
+        while (true) {
+            try {
+                System.out.print("Informe o nome do legume: ");
+                nome = ler.nextLine();
+
+                if (nome.isEmpty()) {
+                    throw new UnsupportedOperationException("Não é permitido inserir nome vazio");
+                } else {
+                    break;
+                }
+            } catch (UnsupportedOperationException e) {
+                System.out.println("Erro NumberFormatException: " + e.getMessage());
+            }
         }
+
         return new Legume(nome, quantidade);
 
     }
